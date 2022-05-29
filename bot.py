@@ -76,7 +76,7 @@ async def on_message(message):
   if message.author == client.user:
     return
   # If the message pattern is not correct, send back a message to the user with the proper format.
-  if message.content.startswith('!check'):
+  if message.content.startswith('!ch'):
     msg = "Result: "
     try:
       msg += str(check(message.content))
