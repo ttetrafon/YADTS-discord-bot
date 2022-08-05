@@ -42,15 +42,13 @@ def check(msg):
   # Second part is the initiator of the action
   initiator = parse(parts[1])
   result = initiator[1]
-  print("result (1):")
-  print(result)
+  print("result (1): " + str(result))
   description = "[" + ", ".join(map(str, initiator[0])) + "]"
   # Forth part is the opponent
   if len(parts) > 3:
     opponent = parse(parts[3])
     result = result - opponent[1]
-    print("result (2):")
-    print(result)
+    print("result (2): " + str(result))
     description = description + " vs [" + ", ".join(map(str, opponent[0])) + "]"
   return str(result) + "\n> " + description
 
@@ -76,13 +74,13 @@ async def on_message(message):
   if message.author == client.user:
     return
   # If the message pattern is not correct, send back a message to the user with the proper format.
-  if message.content.startswith('!ch'):
+  if message.content.startswith('! d'):
     msg = "Result: "
     try:
       msg += str(check(message.content))
     except:
       traceback.print_exc()
-      msg = "Expected format: !check d#1-#2 vs d#3-#4\n - #1: initiator's skill, #2 initiator's difficulty\n - #3: opponent's skill, #2 opponent's difficulty\n ! Note that the opponent's stuff (vs) are optional!"
+      msg = "Expected format: ! d#1-#2 vs d#3-#4\n - #1: initiator's skill, #2 initiator's difficulty\n - #3: opponent's skill, #2 opponent's difficulty\n ! Note that the opponent's stuff (vs) are optional!"
     await message.channel.send(msg)
 
 client.run(props["clientSecret"])
